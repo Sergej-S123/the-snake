@@ -1,4 +1,5 @@
 import random
+
 import pygame
 
 # Константы для размеров поля и сетки:
@@ -69,7 +70,6 @@ class Apple(GameObject):
     def draw(self):
         """Отрисовка ячейки на игровом поле."""
         self.draw_cell(self.position)
-
 
     def randomize_position(self, snake_body):
         """Генерация яблока."""
@@ -185,5 +185,5 @@ def main():
         clock.tick(SNAKE_SPEED)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
