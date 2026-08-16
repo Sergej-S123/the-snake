@@ -57,7 +57,7 @@ class GameObject:
 
     def draw(self):
         """Отрисовка фигур."""
-        raise NotImplementedError("Не реализована функция draw()!")
+        raise NotImplementedError('Не реализована функция draw()!')
 
     def draw_cell(self, position, color=None):
         """Отрисовка ячеек."""
