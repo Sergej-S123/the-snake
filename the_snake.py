@@ -54,6 +54,7 @@ class GameObject:
         position=SCREEN_CENTER
     ):
         self.body_color = body_color
+        self.position = position
 
     def draw(self):
         """Отрисовка фигур."""
@@ -73,10 +74,12 @@ class GameObject:
 class Apple(GameObject):
     """Класс яблока."""
 
-    def __init__(self, occupied_cells):
+    def __init__(self, occupied_cells=None):
+        if occupied_cells is None:
+            occupied_cells = []
+        position = self.randomize_position(occupied_cells)
         super().__init__(
-            APPLE_COLOR,
-            position=self.randomize_position(occupied_cells)
+            APPLE_COLOR, position
         )
 
     def draw(self):
@@ -90,6 +93,7 @@ class Apple(GameObject):
         while self.position in occupied_cells:
             self.position = (random.randint(0, GRID_WIDTH - 1),
                              random.randint(0, GRID_HEIGHT - 1))
+        return self.position
 
 
 class Snake(GameObject):
