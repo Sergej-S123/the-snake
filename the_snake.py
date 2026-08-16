@@ -33,8 +33,6 @@ SNAKE_COLOR = (0, 255, 0)
 # Скорость змейки
 SNAKE_SPEED = 10
 
-
-TOP_LEFT_CORNER = (0, 0)
 # Настройка игрового окна:
 screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
 
