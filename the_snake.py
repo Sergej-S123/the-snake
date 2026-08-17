@@ -51,7 +51,7 @@ class GameObject:
     def __init__(
         self,
         body_color=BOARD_BACKGROUND_COLOR,
-        position=SCREEN_CENTER
+        position=[SCREEN_CENTER]
     ):
         self.body_color = body_color
         self.position = position
@@ -74,13 +74,11 @@ class GameObject:
 class Apple(GameObject):
     """Класс яблока."""
 
-    def __init__(self, occupied_cells=None):
-        if occupied_cells is None:
-            occupied_cells = []
-        position = self.randomize_position(occupied_cells)
+    def __init__(self, occupied_cells=SCREEN_CENTER):
         super().__init__(
-            APPLE_COLOR, position
+            APPLE_COLOR, position=SCREEN_CENTER
         )
+        self.randomize_position(occupied_cells)
 
     def draw(self):
         """Отрисовка ячейки на игровом поле."""
@@ -88,12 +86,9 @@ class Apple(GameObject):
 
     def randomize_position(self, occupied_cells):
         """Генерация яблока."""
-        self.position = (random.randint(0, GRID_WIDTH - 1),
-                         random.randint(0, GRID_HEIGHT - 1))
         while self.position in occupied_cells:
             self.position = (random.randint(0, GRID_WIDTH - 1),
                              random.randint(0, GRID_HEIGHT - 1))
-        return self.position
 
 
 class Snake(GameObject):
@@ -101,7 +96,7 @@ class Snake(GameObject):
 
     def __init__(self, direction=RIGHT):
         super().__init__(SNAKE_COLOR)
-        self.positions = [(SCREEN_CENTER)]
+        self.positions = [SCREEN_CENTER]
         self.direction = RIGHT
         self.next_direction = RIGHT
         self.length = 1
@@ -109,8 +104,10 @@ class Snake(GameObject):
     def move(self):
         """Инициализация движения."""
         head = self.get_head_position()
-        new_head = ((head[0] + self.direction[0]) % GRID_WIDTH,
-                    (head[1] + self.direction[1]) % GRID_HEIGHT)
+        new_head = (
+            (head[0] + self.direction[0]) % GRID_WIDTH,
+            (head[1] + self.direction[1]) % GRID_HEIGHT
+        )
 
         # Перемещение головы змейки
         self.positions.insert(0, new_head)
@@ -131,7 +128,7 @@ class Snake(GameObject):
 
     def reset(self):
         """Сброс позиции и длинны змейки."""
-        self.positions = [(SCREEN_CENTER)]
+        self.positions = [SCREEN_CENTER]
         self.direction = RIGHT
         self.length = 1
 
@@ -189,7 +186,7 @@ def main():
             reset_game(snake, apple)
 
         # Увеличение длинны змейки при съедании яблока
-        if snake.get_head_position() == apple.position:
+        elif snake.get_head_position() == apple.position:
             apple.randomize_position(snake.positions)
             snake.length += 1
 
