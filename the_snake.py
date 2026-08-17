@@ -51,7 +51,7 @@ class GameObject:
     def __init__(
         self,
         body_color=BOARD_BACKGROUND_COLOR,
-        position=[SCREEN_CENTER]
+        position=None
     ):
         self.body_color = body_color
         self.position = position
@@ -175,6 +175,7 @@ def main():
     snake = Snake()
     apple = Apple(snake.positions)
 
+    # Основной цикл игры
     while True:
         clock.tick(SNAKE_SPEED)
         handle_keys(snake)
