@@ -76,7 +76,7 @@ class Apple(GameObject):
 
     def __init__(self, occupied_cells=None):
         super().__init__(
-            APPLE_COLOR, position=SCREEN_CENTER
+            APPLE_COLOR, SCREEN_CENTER
         )
         if occupied_cells is None:
             occupied_cells = [SCREEN_CENTER]
@@ -98,9 +98,9 @@ class Apple(GameObject):
 class Snake(GameObject):
     """Класс змейки."""
 
-    def __init__(self, direction=RIGHT, positions=[SCREEN_CENTER]):
+    def __init__(self, direction=RIGHT, positions=SCREEN_CENTER):
         super().__init__(SNAKE_COLOR)
-        self.positions = positions
+        self.positions = [positions]
         self.direction = RIGHT
         self.next_direction = RIGHT
         self.length = 1
