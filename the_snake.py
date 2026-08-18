@@ -51,7 +51,7 @@ class GameObject:
     def __init__(
         self,
         body_color=BOARD_BACKGROUND_COLOR,
-        position=None
+        position=SCREEN_CENTER
     ):
         self.body_color = body_color
         self.position = position
@@ -74,10 +74,12 @@ class GameObject:
 class Apple(GameObject):
     """Класс яблока."""
 
-    def __init__(self, occupied_cells=SCREEN_CENTER):
+    def __init__(self, occupied_cells=None):
         super().__init__(
             APPLE_COLOR, position=SCREEN_CENTER
         )
+        if occupied_cells is None:
+            occupied_cells = [SCREEN_CENTER]
         self.randomize_position(occupied_cells)
 
     def draw(self):
@@ -87,16 +89,18 @@ class Apple(GameObject):
     def randomize_position(self, occupied_cells):
         """Генерация яблока."""
         while self.position in occupied_cells:
-            self.position = (random.randint(0, GRID_WIDTH - 1),
-                             random.randint(0, GRID_HEIGHT - 1))
+            self.position = (
+                random.randint(0, GRID_WIDTH - 1),
+                random.randint(0, GRID_HEIGHT - 1)
+            )
 
 
 class Snake(GameObject):
     """Класс змейки."""
 
-    def __init__(self, direction=RIGHT):
+    def __init__(self, direction=RIGHT, positions=[SCREEN_CENTER]):
         super().__init__(SNAKE_COLOR)
-        self.positions = [SCREEN_CENTER]
+        self.positions = positions
         self.direction = RIGHT
         self.next_direction = RIGHT
         self.length = 1
